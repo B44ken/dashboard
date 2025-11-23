@@ -92,25 +92,25 @@ const TransitWidget: React.FC = () => {
 
     if (!entry || entry.empty) {
       return (
-        <div className="text-[1.4em] font-bold min-h-[1.2em]">
-          <span className="text-[#444]">--</span>
+        <div className="text-[1.4em] widget-number-main">
+          <span className="widget-number-empty">--</span>
         </div>
       );
     }
 
     if (entry.error) {
       return (
-        <div className="text-[1.4em] font-bold min-h-[1.2em]">
-          <span className="text-[#522]">Err</span>
+        <div className="text-[1.4em] widget-number-main">
+          <span className="widget-number-error">Err</span>
         </div>
       );
     }
 
     return (
-      <div className="text-[1.4em] font-bold min-h-[1.2em]">
+      <div className="text-[1.4em] widget-number-main">
         <span className="inline-block">{entry.primary}</span>
         {entry.secondary !== undefined && (
-          <span className="text-[0.7em] text-[#666] ml-[6px]">
+          <span className="text-[0.7em] text-widget-muted ml-[6px]">
             {entry.secondary}
           </span>
         )}
@@ -119,21 +119,21 @@ const TransitWidget: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#1e1e1e] rounded-[8px] overflow-hidden border border-[#333] text-[2em] w-[420px] grid">
+    <div className="widget-card overflow-hidden text-[2em] grid">
       {/* Subway row */}
       <div className="flex flex-row">
         <div className="flex-1 p-3 text-center border-r border-[#333]">
-          <div className="text-[0.5em] text-[#666] mb-[2px]">COLLEGE</div>
-          <div className="text-[1.4em] font-bold min-h-[1.2em] text-[#ffd60a]">
+          <div className="widget-label-small">COLLEGE</div>
+          <div className="text-[1.4em] widget-number-main text-subway-yellow">
             1
           </div>
         </div>
         <div className="flex-1 p-3 text-center border-r border-[#333]">
-          <div className="text-[0.5em] text-[#666] mb-[2px]">UNION</div>
+          <div className="widget-label-small">UNION</div>
           {renderTimeCell("subway-south")}
         </div>
         <div className="flex-1 p-3 text-center">
-          <div className="text-[0.5em] text-[#666] mb-[2px]">FINCH</div>
+          <div className="widget-label-small">FINCH</div>
           {renderTimeCell("subway-north")}
         </div>
       </div>
@@ -141,17 +141,17 @@ const TransitWidget: React.FC = () => {
       {/* 506 row */}
       <div className="flex flex-row">
         <div className="flex-1 text-center border-r border-[#333]">
-          <div className="text-[0.5em] text-[#666] mb-[2px]">CHURCH</div>
-          <div className="text-[1.4em] font-bold min-h-[1.2em] text-[#ff3b30]">
+          <div className="widget-label-small">CHURCH</div>
+          <div className="text-[1.4em] widget-number-main text-[#ff3b30]">
             506
           </div>
         </div>
         <div className="flex-1 text-center border-r border-[#333]">
-          <div className="text-[0.5em] text-[#666] mb-[2px]">WEST</div>
+          <div className="widget-label-small">WEST</div>
           {renderTimeCell("506-west")}
         </div>
         <div className="flex-1 text-center">
-          <div className="text-[0.5em] text-[#666] mb-[2px]">EAST</div>
+          <div className="widget-label-small">EAST</div>
           {renderTimeCell("506-east")}
         </div>
       </div>
@@ -159,17 +159,17 @@ const TransitWidget: React.FC = () => {
       {/* 94 row */}
       <div className="flex flex-row">
         <div className="flex-1 p-3 text-center border-r border-[#333]">
-          <div className="text-[0.5em] text-[#666] mb-[2px]">CHURCH</div>
-          <div className="text-[1.4em] font-bold min-h-[1.2em] text-[#ff3b30]">
+          <div className="widget-label-small">CHURCH</div>
+          <div className="text-[1.4em] widget-number-main text-[#ff3b30]">
             94
           </div>
         </div>
         <div className="flex-1 p-3 text-center border-r border-[#333]">
-          <div className="text-[0.5em] text-[#666] mb-[2px]">WEST</div>
+          <div className="widget-label-small">WEST</div>
           {renderTimeCell("94-west")}
         </div>
         <div className="flex-1 p-3 text-center">
-          <div className="text-[0.5em] text-[#666] mb-[2px]">EAST</div>
+          <div className="widget-label-small">EAST</div>
           {renderTimeCell("94-east")}
         </div>
       </div>

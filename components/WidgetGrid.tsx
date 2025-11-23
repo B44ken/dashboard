@@ -1,13 +1,16 @@
 import ClockWidget from "./ClockWidget";
 import TransitWidget from "./TransitWidget";
+import SpotifyWidget from "./SpotifyWidget";
 
 const WidgetGrid: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center bg-[#121212] text-[#e0e0e0]"
-         style={{ fontFamily: "-apple-system, monospace" }}>
+    <div className="page-root" style={{ fontFamily: "-apple-system, monospace" }}>
       <ClockWidget />
-      <div className="mt-[15px]">
+      <div className="mt-[15px] w-[560px]">
         <TransitWidget />
+      </div>
+      <div className="mt-[15px] w-[560px]">
+        <SpotifyWidget />
       </div>
     </div>
   );

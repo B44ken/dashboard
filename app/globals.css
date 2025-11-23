@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+	:root {
+		--bg-page: #121212;
+		--text-page: #e0e0e0;
+		--widget-bg: #1e1e1e;
+		--widget-border: #333333;
+		--muted: #666666;
+		--muted-soft: #444444;
+		--error: #ff3b30;
+		--accent: #1db954;
+		--subway-yellow: #ffd60a;
+	}
+
+	body {
+		background-color: var(--bg-page);
+		color: var(--text-page);
+	}
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer components {
+	.page-root {
+		@apply min-h-screen flex flex-col items-center;
+		background-color: var(--bg-page);
+		color: var(--text-page);
+	}
+
+	.widget-card {
+		@apply rounded-lg border p-3 w-full h-full;
+		background-color: var(--widget-bg);
+		border-color: var(--widget-border);
+	}
+
+	.widget-card-tight {
+		@apply rounded-lg border p-4 w-full;
+		background-color: var(--widget-bg);
+		border-color: var(--widget-border);
+	}
+
+	.widget-label {
+		@apply text-xs mb-[2px];
+		color: var(--muted);
+	}
+
+	.widget-label-small {
+		@apply text-[0.5em] mb-[2px];
+		color: var(--muted);
+	}
+
+	.widget-number-main {
+		@apply font-bold min-h-[1.2em];
+	}
+
+	.widget-number-empty {
+		color: var(--muted-soft);
+	}
+
+	.widget-number-error {
+		color: #522222;
+	}
+
+	.widget-progress-track {
+		@apply mt-4 w-full rounded-full h-2.5;
+		background-color: var(--widget-border);
+	}
+
+	.widget-progress-bar {
+		@apply h-2.5 rounded-full transition-all ease-linear;
+		background-color: var(--error);
+	}
+
+	.btn-spotify {
+		@apply inline-flex items-center gap-2 font-semibold text-sm px-4 py-2 rounded-md hover:brightness-110;
+		background-color: var(--accent);
+		color: black;
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+@layer utilities {
+	.text-subway-yellow {
+		color: var(--subway-yellow);
+	}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	.text-widget-muted {
+		color: var(--muted);
+	}
 }

@@ -8,11 +8,7 @@ export const ClockWidget: React.FC = () => {
   useEffect(() => {
     const updateTime = () => {
       const d = new Date();
-      const hours12 = d.getHours() % 12;
-      const hh = String(hours12).padStart(2, "0");
-      const mm = String(d.getMinutes()).padStart(2, "0");
-      const ap = d.getHours() < 12 ? "A" : "P";
-      setTimeText(`${hh}:${mm} ${ap}M`);
+      setTimeText(`${String(d.getHours() % 12).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")} ${d.getHours() < 12 ? "A" : "P"}M`);
     };
 
     updateTime();
