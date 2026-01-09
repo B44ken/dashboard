@@ -16,36 +16,43 @@
 	body {
 		background-color: var(--bg-page);
 		color: var(--text-page);
+		width: 100vw;
+		height: 100vh;
 	}
 }
 
 @layer components {
-	.page-root {
-		@apply min-h-screen flex flex-col items-center;
-		background-color: var(--bg-page);
-		color: var(--text-page);
+	.WidgetGrid {
+		@apply w-full h-full grid grid-rows-[auto_1fr] grid-cols-12 p-2;
+	}
+
+	.ClockWidget {
+		@apply col-span-full text-3xl text-center my-1;
+	}
+
+	.TransitWidget {
+		@apply col-span-6 flex flex-col justify-center;
+	}
+
+	.SpotifyWidget {
+		@apply col-span-6;
+	}
+
+	.TransitWidget,
+	.SpotifyWidget {
+		@apply border rounded-lg m-2 bg-stone-900 border-stone-700;
 	}
 
 	.widget-card {
 		@apply rounded-lg border p-3 w-full h-full;
-		background-color: var(--widget-bg);
-		border-color: var(--widget-border);
 	}
 
 	.widget-card-tight {
 		@apply rounded-lg border p-4 w-full;
-		background-color: var(--widget-bg);
-		border-color: var(--widget-border);
 	}
 
 	.widget-label {
 		@apply text-xs mb-[2px];
-		color: var(--muted);
-	}
-
-	.widget-label-small {
-		@apply text-[0.5em] mb-[2px];
-		color: var(--muted);
 	}
 
 	.widget-number-main {
@@ -53,36 +60,32 @@
 	}
 
 	.widget-number-empty {
-		color: var(--muted-soft);
+		@apply text-gray-500;
 	}
 
 	.widget-number-error {
-		color: #522222;
+		@apply text-red-500;
 	}
 
 	.widget-progress-track {
 		@apply mt-4 w-full rounded-full h-2.5;
-		background-color: var(--widget-border);
 	}
 
 	.widget-progress-bar {
 		@apply h-2.5 rounded-full transition-all ease-linear;
-		background-color: var(--error);
 	}
 
 	.btn-spotify {
 		@apply inline-flex items-center gap-2 font-semibold text-sm px-4 py-2 rounded-md hover:brightness-110;
-		background-color: var(--accent);
-		color: black;
 	}
 }
 
 @layer utilities {
 	.text-subway-yellow {
-		color: var(--subway-yellow);
+		@apply text-yellow-300;
 	}
 
 	.text-widget-muted {
-		color: var(--muted);
+		@apply text-gray-500;
 	}
 }
