@@ -1,21 +1,8 @@
 @import "tailwindcss";
 
 @layer base {
-	:root {
-		--bg-page: #121212;
-		--text-page: #e0e0e0;
-		--widget-bg: #1e1e1e;
-		--widget-border: #333333;
-		--muted: #666666;
-		--muted-soft: #444444;
-		--error: #ff3b30;
-		--accent: #1db954;
-		--subway-yellow: #ffd60a;
-	}
-
 	body {
-		background-color: var(--bg-page);
-		color: var(--text-page);
+		@apply bg-stone-950 text-gray-50;
 		width: 100vw;
 		height: 100vh;
 	}
@@ -23,69 +10,22 @@
 
 @layer components {
 	.WidgetGrid {
-		@apply w-full h-full grid grid-rows-[auto_1fr] grid-cols-12 p-2;
+		@apply w-full h-full grid grid-rows-[auto_1fr_auto] grid-cols-6 px-[12%] py-[8%] gap-2;
 	}
 
-	.ClockWidget {
-		@apply col-span-full text-3xl text-center my-1;
+	.HeaderWidget {
+		@apply col-span-full text-3xl text-center;
 	}
 
 	.TransitWidget {
-		@apply col-span-6 flex flex-col justify-center;
+		@apply col-span-3 flex flex-col justify-center border rounded-lg bg-stone-900 border-stone-700;
 	}
 
 	.SpotifyWidget {
-		@apply col-span-6;
+		@apply col-span-3 border rounded-lg bg-stone-900 border-stone-700;
 	}
 
-	.TransitWidget,
-	.SpotifyWidget {
-		@apply border rounded-lg m-2 bg-stone-900 border-stone-700;
-	}
-
-	.widget-card {
-		@apply rounded-lg border p-3 w-full h-full;
-	}
-
-	.widget-card-tight {
-		@apply rounded-lg border p-4 w-full;
-	}
-
-	.widget-label {
-		@apply text-xs mb-[2px];
-	}
-
-	.widget-number-main {
-		@apply font-bold min-h-[1.2em];
-	}
-
-	.widget-number-empty {
-		@apply text-gray-500;
-	}
-
-	.widget-number-error {
-		@apply text-red-500;
-	}
-
-	.widget-progress-track {
-		@apply mt-4 w-full rounded-full h-2.5;
-	}
-
-	.widget-progress-bar {
-		@apply h-2.5 rounded-full transition-all ease-linear;
-	}
-
-	.btn-spotify {
-		@apply inline-flex items-center gap-2 font-semibold text-sm px-4 py-2 rounded-md hover:brightness-110;
-	}
-}
-
-@layer utilities {
-	.text-subway-yellow {
-		@apply text-yellow-300;
-	}
-
-	.text-widget-muted {
-		@apply text-gray-500;
+	.TasksWidget {
+		@apply col-span-full;
 	}
 }

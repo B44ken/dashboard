@@ -39,9 +39,32 @@ export default () => {
     window.location.href = `https://accounts.spotify.com/authorize?${params}`;
   };
 
+  const refresh = async () => {
+    const rt = window.localStorage.getItem("spotify_refresh_token");
+    if (!rt) return;
+    try {
+      const res = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          grant_type: "refresh_token", refresh_token: rt, client_id: CLIENT_ID
+        }),
+      });
+      const data = await res.json();
+      if (data.access_token) {
+        window.localStorage.setItem("spotify_access_token", data.access_token);
+        window.localStorage.setItem("spotify_expires_at", String(Date.now() + data.expires_in * 1000));
+        if (data.refresh_token) window.localStorage.setItem("spotify_refresh_token", data.refresh_token);
+        setToken(data.access_token);
+      } else {
+        setToken(null);
+      }
+    } catch { setToken(null); }
+  };
+
   useEffect(() => {
     const t = getToken();
-    if (t) { setToken(t); return; }
+    if (t) setToken(t);
+    else refresh();
 
     const url = new URL(window.location.href);
     const code = url.searchParams.get("code");
@@ -59,6 +82,7 @@ export default () => {
         if (data.access_token) {
           window.localStorage.setItem("spotify_access_token", data.access_token);
           window.localStorage.setItem("spotify_expires_at", String(Date.now() + data.expires_in * 1000));
+          if (data.refresh_token) window.localStorage.setItem("spotify_refresh_token", data.refresh_token);
           setToken(data.access_token);
         }
       });
@@ -69,9 +93,12 @@ export default () => {
     if (!token) return;
     const update = () => fetch("https://api.spotify.com/v1/me/player/currently-playing", {
       headers: { Authorization: `Bearer ${token}` }
-    }).then(r => r.status === 200 ? r.json() : null).then(setNowPlaying).catch(() => setToken(null));
+    }).then(async r => {
+      if (r.status === 401) { await refresh(); return null; }
+      return r.status === 200 ? r.json() : null;
+    }).then(d => d && setNowPlaying(d)).catch(() => { });
     update();
-    const id = setInterval(update, 5000);
+    const id = setInterval(update, 3000);
     return () => clearInterval(id);
   }, [token]);
 
@@ -79,15 +106,11 @@ export default () => {
   if (!token) return <div className="SpotifyWidget"><button onClick={login} className="btn-spotify">Connect Spotify</button></div>;
   if (!nowPlaying?.item) return <div className="SpotifyWidget text-gray-500">Nothing playing</div>;
 
-  const { item, progress_ms } = nowPlaying;
-  return <div className="SpotifyWidget flex gap-3 h-full items-center">
-    {item.album.images[0] && <img src={item.album.images[0].url} className="h-full rounded border border-stone-700 aspect-square object-cover" />}
-    <div className="flex-1 min-w-0 flex flex-col justify-center">
-      <div className="font-bold truncate">{item.name}</div>
-      <div className="text-sm text-gray-500 truncate">{item.artists.map((a: any) => a.name).join(", ")}</div>
-      <div className="widget-progress-track mt-2">
-        <div className="widget-progress-bar" style={{ width: `${(progress_ms / item.duration_ms) * 100}%` }} />
-      </div>
+  const progress = nowPlaying.progress_ms / nowPlaying.item.duration_ms, image = nowPlaying.item.album.images[0].url, name = nowPlaying.item.name, artists = nowPlaying.item.artists.map((a: any) => a.name);
+  return <div className="SpotifyWidget bg-cover rounded-lg overflow-clip" style={{ backgroundImage: `url(${image})` }}>
+    <div className="flex flex-col h-full justify-end backdrop-blur-xs font-bold bg-black/60">
+      <div className="my-1 mx-3"><div className="text-lg text-bold">{name}</div><div className="text-sm">{artists}</div></div>
+      <div className="m-1 bg-red-500 h-2 duration-3000 ease-linear rounded-lg" style={{ width: `${progress * 100}%` }} />
     </div>
   </div>;
 };
