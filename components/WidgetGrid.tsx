@@ -2,6 +2,7 @@ import HeaderWidget from "./HeaderWidget";
 import TransitWidget from "./TransitWidget";
 import SpotifyWidget from "./SpotifyWidget";
 import TasksWidget from "./TasksWidget";
+import VideoWidget from "./VideoWidget";
 
 const WidgetGrid: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ const WidgetGrid: React.FC = () => {
       <HeaderWidget />
       <TransitWidget />
       <SpotifyWidget />
+      <VideoWidget />
       <TasksWidget />
     </div>
   );
